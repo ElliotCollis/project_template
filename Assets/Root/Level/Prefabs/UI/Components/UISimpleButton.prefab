@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6220059966693490597}
   - component: {fileID: 8701751581502832301}
   m_Layer: 5
-  m_Name: UISimplePanelButton
+  m_Name: UISimpleButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

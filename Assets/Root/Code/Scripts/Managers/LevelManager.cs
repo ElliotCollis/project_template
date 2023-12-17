@@ -18,13 +18,12 @@ namespace HowlingMan
 
         public int[] LevelSeeds;
 
-        public string mainMenuPath = "MainMenuPrefab";
-
         public void StartGameLoad()
         {
             if (SceneManager.sceneCount == 1) // this checks if we have other scenes open for testing. If it's 1 we only have the settings open, so act like a preload.
             {
-                LoadLevel(mainMenu, mainMenuPath);
+                if (!loading)
+                    StartCoroutine("ShowSplashScreen");
             }
             else
             {
@@ -37,7 +36,19 @@ namespace HowlingMan
                     }
                 }
             }
+        }
+
+        IEnumerator ShowSplashScreen ()
+        {
+            loading = true;
+
             GameManager.instance.uiManager.FadeInFromBlack();
+
+            yield return new WaitForSeconds(0.2f);
+
+            GameManager.instance.uiManager.LoadMenu("SplashScreensPrefab");
+
+            loading = false;
         }
 
         public void LoadLevel(string levelName, string menuToLoad = "")
@@ -52,6 +63,7 @@ namespace HowlingMan
         {
             loading = true;
             GameManager.instance.uiManager.ShowLoading();
+            GameManager.instance.uiManager.ClearCurrentMenus();
             yield return new WaitForSeconds(1f);
 
             AsyncOperation asyncOperation;
@@ -74,9 +86,10 @@ namespace HowlingMan
                 yield return null;
             }
 
-            if (menuToLoad != null)
+            if (menuToLoad != "")
                 GameManager.instance.uiManager.LoadMenu(menuToLoad);
-
+            else
+                GameManager.instance.uiManager.HideLoading();
             
             asyncOperation.allowSceneActivation = true;
             yield return new WaitForEndOfFrame();
@@ -101,6 +114,11 @@ namespace HowlingMan
             //GameManager.instance.uiManager.HideAllCanvases();
             Time.timeScale = 1;
             paused = false;
+        }
+
+        public void LoadHome()
+        {
+            LoadLevel(mainMenu, "MainMenuPrefab");
         }
     }
 }

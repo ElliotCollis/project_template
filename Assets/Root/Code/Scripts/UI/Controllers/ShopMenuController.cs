@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace HowlingMan.UI
 {
-    public class CustomizationMenuController : BaseMenuController
+    public class ShopMenuController : BaseMenuController
     {
         public override string[] buttons
         {
@@ -12,15 +12,19 @@ namespace HowlingMan.UI
             {
                 return new string[]
                 {
-                    "Back",
-                    "NextUI"
+                    "NextUI",
+                    "Back"
                 };
             }
         }
 
+        public override void LoadHeader() { }
+
+        public override void LoadFooter() { }
+
         void NextUI()
         {
-            GameManager.instance.uiManager.LoadMenu("ShopPrefab");
+            GameManager.instance.uiManager.LoadMenu("OptionsPrefab");
         }
 
         void Back()

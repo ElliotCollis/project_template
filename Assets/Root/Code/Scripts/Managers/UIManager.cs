@@ -1,17 +1,18 @@
-using System.Threading;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace HowlingMan
 {
     public class UIManager : MonoBehaviour
     {
         public CanvasGroup currentCanvas = null;
+
+        public CanvasGroup currentHeader = null;
+
+        public CanvasGroup currentFooter = null;
 
         [Space]
 
@@ -23,8 +24,14 @@ namespace HowlingMan
 
         Queue<string> menuTree = new Queue<string>();
 
-        AsyncOperationHandle<GameObject> loadedMenu;
+        AddressableAssetLoader assetLoader;
 
+        //AsyncOperationHandle<GameObject> loadedMenu;
+
+        private void Start()
+        {
+            assetLoader = new AddressableAssetLoader();
+        }
 
         public void FadeInFromBlack() => FadeMenu(fadeLayer, 0f, 0.2f, true, true);
 
@@ -61,10 +68,79 @@ namespace HowlingMan
 
         public void LoadMenu (string menuName)
         {
-            StartCoroutine("LoadMenuAsync", menuName);
+            LoadMenuAsync(menuName, 0);
         }
 
-        public void Back () // on android back button call this.
+        public void LoadHeader(string headerName)
+        {
+            LoadMenuAsync(headerName, 1);
+        }
+
+        public void LoadFooter(string footerName)
+        {
+            LoadMenuAsync(footerName, 2);
+        }
+
+        async void LoadMenuAsync(string menuName, int menuLevel = 0)
+        {
+            Debug.Log(menuName);
+            GameObject loadedMenu = await assetLoader.LoadAssetAndInstantiateAsync<GameObject>(menuName, transform);
+
+            if (loadedMenu != null)
+            {
+                CanvasGroup canvasGroup = loadedMenu.GetComponent<CanvasGroup>();
+
+                switch (menuLevel)
+                {
+                    case 0: // current menu
+                        loadedMenu.transform.SetAsFirstSibling();
+                        menuTree.Enqueue(menuName);
+                        if (currentCanvas != null)
+                            FadeMenu(currentCanvas, 0, 0.2f, true, true, true);
+                        currentCanvas = canvasGroup;
+                        break;
+
+                    case 1: // current header
+                        loadedMenu.transform.SetSiblingIndex(1);
+                        if (currentHeader != null)
+                            FadeMenu(currentHeader, 0, 0.2f, true, true, true);
+                        currentHeader = canvasGroup;
+                        break;
+
+                    case 2: // current footer
+                        loadedMenu.transform.SetSiblingIndex(2);
+                        if (currentFooter != null)
+                            FadeMenu(currentFooter, 0, 0.2f, true, true, true);
+                        currentFooter = canvasGroup;
+                        break;
+                }
+
+
+                FadeMenu(canvasGroup, 1, 0.2f,  false, false);
+
+                if (loadingLayer.alpha == 1) HideLoading();
+            }else
+            {
+                Debug.Log("Menu loading status: Failed");
+            }
+        }
+
+        public void ClearCurrentMenus  ()
+        {
+            if (currentCanvas != null)
+                FadeMenu(currentCanvas, 0, 0.2f, true, true, true);
+            currentCanvas = null;
+
+            if (currentHeader != null)
+                FadeMenu(currentHeader, 0, 0.2f, true, true, true);
+            currentHeader =  null;
+
+            if (currentFooter != null)
+                FadeMenu(currentFooter, 0, 0.2f, true, true, true);
+            currentFooter = null;
+        }
+
+        public void Back() // on android back button call this.
         {
             menuTree.Dequeue();
 
@@ -77,48 +153,10 @@ namespace HowlingMan
             LoadMenu(menuTree.Dequeue());
         }
 
-        public void BackToHome ()
+        public void BackToHome()
         {
             menuTree.Clear();
-            LoadMenu(GameManager.instance.levelManager.mainMenuPath);
-        }
-
-        IEnumerator LoadMenuAsync(string menuName)
-        {
-            Debug.Log("Menu loading status: Started");
-
-            loadedMenu = Addressables.LoadAssetAsync<GameObject>(menuName);
-            yield return loadedMenu;
-            Debug.Log($"Menu loading status: {loadedMenu.Status}");
-
-            if (loadedMenu.Status == AsyncOperationStatus.Succeeded)
-            {
-                GameObject go = Instantiate(loadedMenu.Result, transform);
-                go.transform.SetAsFirstSibling();
-                CanvasGroup canvasGroup = go.GetComponent<CanvasGroup>();
-
-                if (currentCanvas != null)
-                    FadeMenu(currentCanvas, 0, 0.2f, true, true, true);
-                FadeMenu(canvasGroup, 1, 0.2f,  false, false);
-
-                Addressables.Release(loadedMenu);
-
-                menuTree.Enqueue(menuName);
-                currentCanvas = canvasGroup;
-
-                if (loadingLayer.alpha == 1) HideLoading();
-            }else
-            {
-                Debug.Log("Menu loading status: Failed");
-            }
-        }
-
-        void OnDestroy()
-        {
-            if (loadedMenu.IsValid())
-            {
-                Addressables.Release(loadedMenu);
-            }
+            LoadMenu("MainMenuPrefab");
         }
     }
 }

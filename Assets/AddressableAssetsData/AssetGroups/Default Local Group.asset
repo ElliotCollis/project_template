@@ -42,6 +42,21 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d98da2f9dc549466cadcd7d76c0754a8
+    m_Address: UISimpleButton
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d3c2d68e2d1844627af7a446570f37a1
+    m_Address: MainMenuHeaderPrefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 674f8c6dc72f84297bc3607c92523b6c
+    m_Address: MainMenuFooterPrefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 15e87be88d2e444238c4a9bf037814b2, type: 2}
   m_SchemaSet:

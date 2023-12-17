@@ -25,25 +25,39 @@ namespace HowlingMan.UI
             }
         }
 
+        public override void LoadHeader()
+        {
+            GameManager.instance.uiManager.LoadHeader("MainMenuFooterPrefab");
+        }
+
+        public override void LoadFooter()
+        {
+            GameManager.instance.uiManager.LoadFooter("MainMenuFooterPrefab");
+        }
+
+
         void StartGame()
         {
             Debug.Log("start the game");
-            GameManager.instance.uiManager.LoadMenu("OptionsPrefab");
+            GameManager.instance.levelManager.LoadLevel("Gameplay"); 
         }
 
         void Options()
         {
             Debug.Log("load options menu");
+            GameManager.instance.uiManager.LoadMenu("OptionsPrefab");
         }
 
         void Customization()
         {
             Debug.Log("load customization menu");
+            GameManager.instance.uiManager.LoadMenu("CustomizationPrefab");
         }
 
         void Shop()
         {
             Debug.Log("load the shop");
+            GameManager.instance.uiManager.LoadMenu("ShopPrefab");
         }
 
         void Exit ()
