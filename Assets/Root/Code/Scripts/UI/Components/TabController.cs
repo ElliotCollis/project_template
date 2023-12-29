@@ -13,7 +13,7 @@ namespace HowlingMan.UI
 
         public int currentPanelIndex = -1;
 
-        private AddressableAssetLoader assetLoader;
+        AddressableAssetLoader assetLoader;
 
         public TabController()
         {
@@ -27,13 +27,13 @@ namespace HowlingMan.UI
             DisplayPanel(startPanelIndex);
         }
 
-        private async Task SpawnBase(Transform parent)
+        async Task SpawnBase(Transform parent)
         {
             GameObject basePanelPrefab = await assetLoader.LoadAssetAndInstantiateAsync<GameObject>(AssetData.LargePanel, parent);
             basePanel = basePanelPrefab.GetComponent<PanalRef>();
         }
 
-        private async Task SpawnTabsAndPanels(string[] buttonNames, string[] panelAssets)
+        async Task SpawnTabsAndPanels(string[] buttonNames, string[] panelAssets)
         {
             var tasks = new List<Task<GameObject>>();
             tasks.Add(assetLoader.LoadAssetAsync<GameObject>("UISimpleButton"));
@@ -49,7 +49,7 @@ namespace HowlingMan.UI
             SetupPanels(results, panelAssets.Length);
         }
 
-        private void SetupTabs(string[] buttonNames, GameObject buttonPrefab)
+        void SetupTabs(string[] buttonNames, GameObject buttonPrefab)
         {
             tabButtons = new List<ButtonRef>();
             for (int i = 0; i < buttonNames.Length; i++)
@@ -65,8 +65,7 @@ namespace HowlingMan.UI
             assetLoader.UnloadAsset(buttonPrefab);
         }
 
-
-        private void SetupPanels(GameObject[] panelAssets, int numberOfPanels)
+        void SetupPanels(GameObject[] panelAssets, int numberOfPanels)
         {
             tabPanels = new List<CanvasGroup>();
             for (int i = 0; i < numberOfPanels; i++)
@@ -77,7 +76,7 @@ namespace HowlingMan.UI
             }
         }
 
-        private void DisplayPanel(int index)
+        void DisplayPanel(int index)
         {
             if (currentPanelIndex >= 0)
             {

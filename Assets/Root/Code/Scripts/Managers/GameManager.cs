@@ -18,6 +18,7 @@ namespace HowlingMan
         public UIManager uiManager;
         MenuInput menuInput;
         public GameStates gameState;
+        public bool gamePaused = false;
 
         void Awake()
         {
@@ -31,37 +32,36 @@ namespace HowlingMan
 
         void Update()
         {
-            if (!menuInput.actions.pauseGame.WasPressed)
-                return;
-
-            switch (gameState)
+            if (menuInput.actions.pauseGame.WasPressed)
             {
-                case GameStates.inMenu:
-                    uiManager.Back();
-                    break;
-                case GameStates.inGame:
-                    PauseGame();
-                    break;
-                case GameStates.inCutscene:
-                    // skip or end.
-                    break;
-                default:
-                    break;
+                switch (gameState)
+                {
+                    case GameStates.inMenu:
+                        uiManager.Back();
+                        break;
+                    case GameStates.inGame:
+                        PauseGame();
+                        break;
+                    case GameStates.inCutscene:
+                        // skip or end.
+                        break;
+                    default:
+                        break;
+                }
             }
-
         }
 
         public void PauseGame()
         {
-            if (Time.time == 0)
+            if (gamePaused)
                 Resume();
             else
                 Pause();
         }
 
         void Pause ()
-        { 
-            // pause menu ui;
+        {
+            gamePaused = true;
             uiManager.LoadMenu(AssetData.PauseMenuPrefab);
             uiManager.StoreHeaderAndFooter();
             Time.timeScale = 0;
@@ -70,6 +70,7 @@ namespace HowlingMan
 
         void Resume()
         {
+            gamePaused = false;
             uiManager.ClearCurrentMenu();
             uiManager.RestoreHeaderAndFooter();
             Time.timeScale = 1;

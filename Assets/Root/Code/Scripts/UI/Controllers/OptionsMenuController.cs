@@ -15,7 +15,6 @@ namespace HowlingMan.UI
             {
                 return new string[]
                 {
-                    "NextUI",
                     "Back"
                 };
             }
@@ -24,30 +23,64 @@ namespace HowlingMan.UI
         public override void OnInitialize()
         {
             tabController = new TabController();
-            SpawnTabGroup();
+            SpawnOptionTabs();
         }
 
-        async void SpawnTabGroup()
+        async void SpawnOptionTabs()
         {
-            string[] tabNames = new string[] { "tab1", "tab2", "tab3" };
+            string[] tabNames = new string[] { "General", "Audio", "Display", "Controls" }; // I guess controls is ommited from mobile? 
             string[] tabPanels = new string[] { AssetData.TabPanelContainer, AssetData.TabPanelContainer, AssetData.TabPanelContainer };
            
             await tabController.InitializeAsync(tapPanel, tabNames, tabPanels);
+
+            for (int i = 0; i < tabController.tabPanels.Count; i++)
+            {
+                switch (i)
+                {
+                    case 0:
+                        GeneralOptions(tabController.tabPanels[i].transform);
+                        break;
+                    case 1:
+                        AudioOptions(tabController.tabPanels[i].transform);
+                        break;
+                    case 2:
+                        DisplayOptions(tabController.tabPanels[i].transform);
+                        break;
+                    case 3:
+                        ControlOptions(tabController.tabPanels[i].transform);
+                        break;
+                }
+            }
         }
 
         public override void LoadHeader() { }
 
         public override void LoadFooter() { }
 
-        void NextUI()
-        {
-            GameManager.instance.uiManager.LoadMenu("CustomizationPrefab");
-        }
-
         void Back() 
         {
             Debug.Log("Back to previous menu");
             GameManager.instance.uiManager.Back();
+        }
+
+        void GeneralOptions (Transform panel)
+        {
+
+        }
+
+        void AudioOptions(Transform panel)
+        {
+
+        }
+
+        void DisplayOptions(Transform panel)
+        {
+
+        }
+
+        void ControlOptions(Transform panel)
+        {
+
         }
     }
 }

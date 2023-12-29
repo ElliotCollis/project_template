@@ -64,7 +64,7 @@ namespace HowlingMan
                 canvasGroup.interactable = false;
                 canvasGroup.gameObject.SetActive(false);
 
-            });
+            }).SetUpdate(true);
         }
 
         public void LoadMenu(string menuName)
@@ -127,6 +127,7 @@ namespace HowlingMan
 
                         currentFooter = canvasGroup;
                         break;
+         
                 }
 
 
@@ -184,7 +185,7 @@ namespace HowlingMan
         {
             menuTree.Dequeue();
 
-            if (menuTree.Count == 1)
+            if (menuTree.Count <= 1)
             {
                 BackToHome();
                 return;

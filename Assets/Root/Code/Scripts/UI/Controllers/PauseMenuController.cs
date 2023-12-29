@@ -25,18 +25,20 @@ namespace HowlingMan.UI
         void Resume()
         {
             Debug.Log("Back to Main Menu");
-            GameManager.instance.uiManager.BackToHome();
+            GameManager.instance.PauseGame();
         }
 
         void Options ()
         {
+            Debug.Log("Load options.");
             GameManager.instance.uiManager.LoadMenu(AssetData.OptionsPrefab);
         }
 
         void Back()
         {
             Debug.Log("Back to Main Menu");
-            GameManager.instance.uiManager.BackToHome();
+            GameManager.instance.PauseGame();
+            GameManager.instance.levelManager.LoadHome();
         }
     }
 }

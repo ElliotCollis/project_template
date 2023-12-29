@@ -45,7 +45,7 @@ namespace HowlingMan
 
             yield return new WaitForSeconds(0.2f);
 
-            GameManager.instance.uiManager.LoadMenu("SplashScreensPrefab");
+            GameManager.instance.uiManager.LoadMenu(AssetData.SplashScreensPrefab);
 
             loading = false;
         }
@@ -102,7 +102,8 @@ namespace HowlingMan
 
         public void LoadHome()
         {
-            LoadLevel(mainMenu, "MainMenuPrefab");
+            GameManager.instance.gameState = GameManager.GameStates.inMenu;
+            LoadLevel(mainMenu, AssetData.MainMenuPrefab);
         }
     }
 }

@@ -12,7 +12,6 @@ namespace HowlingMan.UI
             {
                 return new string[]
                 {
-                    "NextUI",
                     "Back"
                 };
             }
@@ -21,11 +20,6 @@ namespace HowlingMan.UI
         public override void LoadHeader() { }
 
         public override void LoadFooter() { }
-
-        void NextUI()
-        {
-            GameManager.instance.uiManager.LoadMenu("ShopPrefab");
-        }
 
         void Back()
         {
