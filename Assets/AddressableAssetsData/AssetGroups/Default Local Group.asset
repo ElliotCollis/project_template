@@ -57,6 +57,31 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 52bba93441419458b973dc70cac5c0ea
+    m_Address: PopUpDialogueBox
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6255b7985f03e460b92b8397bd588101
+    m_Address: PopUpDialogueBoxLarge
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1979bfe8c8ea74b9c8d6df9d64d85759
+    m_Address: TabPanelContainer
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5b7f799b81a2a4b2f95eec1ba5baca81
+    m_Address: LargePanel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7232591ea4ac44e0ba6942c926fe6bb9
+    m_Address: PauseMenuPrefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 15e87be88d2e444238c4a9bf037814b2, type: 2}
   m_SchemaSet:
