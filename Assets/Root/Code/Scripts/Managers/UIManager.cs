@@ -33,20 +33,21 @@ namespace HowlingMan
             assetLoader = new AddressableAssetLoader();
         }
 
-        public void FadeInFromBlack() => FadeMenu(fadeLayer, 0f, 0.2f, true, true);
+        public void FadeInFromBlack() => FadeMenu(fadeLayer, 0f, GlobalData.fadeTimes, true, true);
 
-        public void FadeOutToBlack() => FadeMenu(fadeLayer, 1f, 0.2f);
+        public void FadeOutToBlack() => FadeMenu(fadeLayer, 1f, GlobalData.fadeTimes);
 
-        public void ShowLoading() => FadeMenu(loadingLayer, 1f, 0.4f);       
+        public void ShowLoading() => FadeMenu(loadingLayer, 1f, GlobalData.fadeTimes);
 
-        public void HideLoading() => FadeMenu(loadingLayer, 0f, 0.4f, true, true);
+        public void HideLoading() => FadeMenu(loadingLayer, 0f, GlobalData.fadeTimes, true, true);
 
-        void FadeMenu(CanvasGroup canvasGroup, float endValue, float duration, bool startFullAlpha = false, bool hideOnComplete = false, bool destroyOnComplete =  false)
+        void FadeMenu(CanvasGroup canvasGroup, float endValue, float duration, bool startFullAlpha = false, bool hideOnComplete = false, bool destroyOnComplete = false)
         {
             canvasGroup.gameObject.SetActive(true);
-            canvasGroup.interactable = true; // might need to move this to after load.
+            canvasGroup.interactable = true;
             canvasGroup.blocksRaycasts = true;
-            if(startFullAlpha) canvasGroup.alpha = 1;
+
+            if (startFullAlpha) canvasGroup.alpha = 1;
 
             canvasGroup.DOFade(endValue, duration).OnComplete(() =>
             {
@@ -66,8 +67,10 @@ namespace HowlingMan
             });
         }
 
-        public void LoadMenu (string menuName)
+        public void LoadMenu(string menuName)
         {
+            if (menuName == "MainMenuPrefab") menuTree.Clear();
+
             LoadMenuAsync(menuName, 0);
         }
 
@@ -84,6 +87,10 @@ namespace HowlingMan
         async void LoadMenuAsync(string menuName, int menuLevel = 0)
         {
             Debug.Log(menuName);
+
+            if (string.IsNullOrEmpty(menuName) || menuName == "")
+                return;
+
             GameObject loadedMenu = await assetLoader.LoadAssetAndInstantiateAsync<GameObject>(menuName, transform);
 
             if (loadedMenu != null)
@@ -94,50 +101,83 @@ namespace HowlingMan
                 {
                     case 0: // current menu
                         loadedMenu.transform.SetAsFirstSibling();
+                        Debug.Log($"Add menu {menuName} to menu tree.");
                         menuTree.Enqueue(menuName);
+
                         if (currentCanvas != null)
                             FadeMenu(currentCanvas, 0, 0.2f, true, true, true);
+
                         currentCanvas = canvasGroup;
                         break;
 
                     case 1: // current header
                         loadedMenu.transform.SetSiblingIndex(1);
+
                         if (currentHeader != null)
                             FadeMenu(currentHeader, 0, 0.2f, true, true, true);
+
                         currentHeader = canvasGroup;
                         break;
 
                     case 2: // current footer
                         loadedMenu.transform.SetSiblingIndex(2);
+
                         if (currentFooter != null)
                             FadeMenu(currentFooter, 0, 0.2f, true, true, true);
+
                         currentFooter = canvasGroup;
                         break;
                 }
 
 
-                FadeMenu(canvasGroup, 1, 0.2f,  false, false);
+                FadeMenu(canvasGroup, 1, 0.2f, false, false);
 
                 if (loadingLayer.alpha == 1) HideLoading();
-            }else
+            }
+            else
             {
                 Debug.Log("Menu loading status: Failed");
             }
         }
 
-        public void ClearCurrentMenus  ()
+        public void ClearCurrentMenus()
+        {
+            ClearCurrentMenu();
+            ClearHeaderAndFooter();
+        }
+
+        public void ClearCurrentMenu()
         {
             if (currentCanvas != null)
                 FadeMenu(currentCanvas, 0, 0.2f, true, true, true);
             currentCanvas = null;
+        }
 
+        public void ClearHeaderAndFooter()
+        {
             if (currentHeader != null)
                 FadeMenu(currentHeader, 0, 0.2f, true, true, true);
-            currentHeader =  null;
+            currentHeader = null;
 
             if (currentFooter != null)
                 FadeMenu(currentFooter, 0, 0.2f, true, true, true);
             currentFooter = null;
+        }
+
+        public void StoreHeaderAndFooter()
+        {
+            if (currentHeader != null)
+                currentCanvas.gameObject.SetActive(false);
+            if (currentFooter != null)
+                currentFooter.gameObject.SetActive(false);
+        }
+
+        public void RestoreHeaderAndFooter()
+        {
+            if (currentHeader != null)
+                currentCanvas.gameObject.SetActive(true);
+            if (currentFooter != null)
+                currentFooter.gameObject.SetActive(true);
         }
 
         public void Back() // on android back button call this.
@@ -150,13 +190,18 @@ namespace HowlingMan
                 return;
             }
 
+            Debug.Log($"Back : {menuTree.Count}");
+
             LoadMenu(menuTree.Dequeue());
         }
 
         public void BackToHome()
         {
-            menuTree.Clear();
-            LoadMenu("MainMenuPrefab");
+            Debug.Log("Back to home");
+            GameManager.instance.gameState = GameManager.GameStates.inMenu;
+            LoadMenu(AssetData.MainMenuPrefab);
         }
+
+        
     }
 }

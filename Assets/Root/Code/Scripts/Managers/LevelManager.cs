@@ -13,7 +13,6 @@ namespace HowlingMan
 
         public GameObject[] menus;
 
-        public bool paused = false;
         bool loading = false;
 
         public int[] LevelSeeds;
@@ -94,26 +93,11 @@ namespace HowlingMan
             asyncOperation.allowSceneActivation = true;
             yield return new WaitForEndOfFrame();
 
-            //GameManager.instance.uiManager.HideLoading();
             currentLevel = targetLevel;
             targetLevel = "";
             loading = false;
 
             // unity scripting allow scene activation if I want a progress bar.
-        }
-
-        public void PauseGame()
-        {
-            paused = true;
-            //GameManager.instance.uiManager.LoadPauseCanvas();
-            Time.timeScale = 0;
-        }
-
-        public void ResumeGame()
-        {
-            //GameManager.instance.uiManager.HideAllCanvases();
-            Time.timeScale = 1;
-            paused = false;
         }
 
         public void LoadHome()
