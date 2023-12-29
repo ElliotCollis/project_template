@@ -72,15 +72,19 @@ namespace HowlingMan.UI
             canvasGroup.alpha = 0;
 
             // Scale up and fade in using DOTween
-            transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);
-            canvasGroup.DOFade(1, 0.2f);
+            transform.DOScale(Vector3.one, 1f).SetEase(Ease.OutBounce);
+            canvasGroup.DOFade(1, 0.5f);
         }
 
         public void CloseDialogue()
         {
             // Scale down and fade out using DOTween
-            transform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack);
+            transform.DOScale(Vector3.zero, 1f).SetEase(Ease.InBounce);
             canvasGroup.DOFade(0, 0.5f).OnComplete(() => Destroy(gameObject));
         }
+
+        // background shuts without calling the corrent oncancel action.
+        // but we might not want that, we might want to force the button click.
+        // so we want to choose when to set it? like if two buttons don't use it?
     }
 }
