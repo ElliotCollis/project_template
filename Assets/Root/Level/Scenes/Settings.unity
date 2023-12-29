@@ -542,7 +542,6 @@ MonoBehaviour:
   currentLevel: 
   targetLevel: 
   menus: []
-  paused: 0
   LevelSeeds: 
 --- !u!1 &1562677644
 GameObject:

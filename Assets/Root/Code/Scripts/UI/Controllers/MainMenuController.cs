@@ -27,7 +27,7 @@ namespace HowlingMan.UI
 
         public override void LoadHeader()
         {
-            GameManager.instance.uiManager.LoadHeader("MainMenuFooterPrefab");
+            GameManager.instance.uiManager.LoadHeader("MainMenuHeaderPrefab");
         }
 
         public override void LoadFooter()
@@ -39,6 +39,7 @@ namespace HowlingMan.UI
         void StartGame()
         {
             Debug.Log("start the game");
+            GameManager.instance.gameState = GameManager.GameStates.inGame;
             GameManager.instance.levelManager.LoadLevel("Gameplay"); 
         }
 

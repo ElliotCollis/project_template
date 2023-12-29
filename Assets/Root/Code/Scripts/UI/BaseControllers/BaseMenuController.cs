@@ -50,10 +50,14 @@ namespace HowlingMan.UI
             }
 
             LoadHeader();
-            LoadHeader();
+            LoadFooter();
+            OnInitialize();
 
             Initialized = true;
         }
+
+        public virtual void OnInitialize() { }
+        
 
         public abstract void LoadHeader();
         public abstract void LoadFooter();

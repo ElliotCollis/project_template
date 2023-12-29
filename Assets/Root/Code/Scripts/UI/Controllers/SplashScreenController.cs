@@ -19,12 +19,14 @@ namespace HowlingMan.UI
         private void Awake()
         {
             splashes = new Queue<Sprite>(sprites);
-
+            uiImage.DOFade(0, 0);
             StartCoroutine(PlaySplashSequence());
         }
 
         private IEnumerator PlaySplashSequence()
         {
+            yield return new WaitForSeconds(waitTime);
+
             while (splashes.Count > 0)
             {
                 Sprite splash = splashes.Dequeue();
