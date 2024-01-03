@@ -31,12 +31,13 @@ namespace HowlingMan.UI
         {
             GameObject basePanelPrefab = await assetLoader.LoadAssetAndInstantiateAsync<GameObject>(AssetData.LargePanel, parent);
             basePanel = basePanelPrefab.GetComponent<PanalRef>();
+            basePanel.gameObject.SetActive(false);
         }
 
         async Task SpawnTabsAndPanels(string[] buttonNames, string[] panelAssets)
         {
             var tasks = new List<Task<GameObject>>();
-            tasks.Add(assetLoader.LoadAssetAsync<GameObject>("UISimpleButton"));
+            tasks.Add(assetLoader.LoadAssetAsync<GameObject>(AssetData.UISimpleButton));
 
             foreach (var panelName in panelAssets)
             {
@@ -78,6 +79,8 @@ namespace HowlingMan.UI
 
         void DisplayPanel(int index)
         {
+            basePanel.gameObject.SetActive(true);
+
             if (currentPanelIndex >= 0)
             {
                 tabPanels[currentPanelIndex].gameObject.SetActive(false);

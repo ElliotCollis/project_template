@@ -17,8 +17,6 @@ namespace HowlingMan.UI
 
         AddressableAssetLoader assetLoader;
 
-        string buttonPath = "UISimpleButton";
-
 
         void Awake()
         {
@@ -28,8 +26,9 @@ namespace HowlingMan.UI
 
         async void InitializeUI()
         {
+            layoutGroup.gameObject.SetActive(false);
             assetLoader = new AddressableAssetLoader();
-            GameObject buttonPrefab = await assetLoader.LoadAssetAsync<GameObject>(buttonPath);
+            GameObject buttonPrefab = await assetLoader.LoadAssetAsync<GameObject>(AssetData.UISimpleButton);
 
             if (buttonPrefab != null)
             {
@@ -51,6 +50,8 @@ namespace HowlingMan.UI
 
             LoadHeader();
             LoadFooter();
+
+            layoutGroup.gameObject.SetActive(true);
             OnInitialize();
 
             Initialized = true;

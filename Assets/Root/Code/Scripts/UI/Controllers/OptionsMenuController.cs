@@ -1,5 +1,6 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace HowlingMan.UI
@@ -23,32 +24,36 @@ namespace HowlingMan.UI
         public override void OnInitialize()
         {
             tabController = new TabController();
-            SpawnOptionTabs();
+            SpawnOptions();
         }
 
-        async void SpawnOptionTabs()
+        async void SpawnOptions()
         {
-            string[] tabNames = new string[] { "General", "Audio", "Display", "Controls" }; // I guess controls is ommited from mobile? 
-            string[] tabPanels = new string[] { AssetData.TabPanelContainer, AssetData.TabPanelContainer, AssetData.TabPanelContainer };
-           
+            await SpawnOptionTabs();
+        }
+
+        async Task SpawnOptionTabs()
+        {
+            string[] tabNames = { "General", "Audio", "Display", "Controls" }; // Assuming "Controls" is included
+
+            // Map each tab name to a corresponding setup method
+            var optionsSetup = new Dictionary<string, Action<Transform>>
+            {
+                ["General"] = GeneralOptions,
+                ["Audio"] = AudioOptions,
+                ["Display"] = DisplayOptions,
+                ["Controls"] = ControlOptions
+            };
+
+            string[] tabPanels = { AssetData.TabPanelContainer, AssetData.TabPanelContainer, AssetData.TabPanelContainer, AssetData.TabPanelContainer };
             await tabController.InitializeAsync(tapPanel, tabNames, tabPanels);
 
             for (int i = 0; i < tabController.tabPanels.Count; i++)
             {
-                switch (i)
+                string tabName = tabNames[i];
+                if (optionsSetup.TryGetValue(tabName, out var setupAction))
                 {
-                    case 0:
-                        GeneralOptions(tabController.tabPanels[i].transform);
-                        break;
-                    case 1:
-                        AudioOptions(tabController.tabPanels[i].transform);
-                        break;
-                    case 2:
-                        DisplayOptions(tabController.tabPanels[i].transform);
-                        break;
-                    case 3:
-                        ControlOptions(tabController.tabPanels[i].transform);
-                        break;
+                    setupAction.Invoke(tabController.tabPanels[i].transform);
                 }
             }
         }
