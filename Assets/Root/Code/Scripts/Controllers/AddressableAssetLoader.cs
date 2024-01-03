@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace HowlingMan
@@ -35,6 +36,33 @@ namespace HowlingMan
             }
         }
 
+        // New method for bulk loading
+        public async Task<List<T>> LoadAssetsAsync<T>(List<string> assetNames) where T : Object
+        {
+            var loadTasks = new List<AsyncOperationHandle<T>>();
+            foreach (var name in assetNames)
+            {
+                loadTasks.Add(Addressables.LoadAssetAsync<T>(name));
+            }
+
+            var loadedAssets = new List<T>();
+            foreach (var task in loadTasks)
+            {
+                await task.Task;
+                if (task.Status == AsyncOperationStatus.Succeeded)
+                {
+                    loadedAssets.Add(task.Result);
+                }
+                else
+                {
+                    Debug.LogError($"Failed to load asset: {task.Result.name}");
+                    // Handle the error appropriately
+                }
+            }
+
+            return loadedAssets;
+        }
+
         public async Task<T> LoadAssetAndInstantiateAsync<T>(string assetName, Transform parent = null) where T : Object
         {
             AsyncOperationHandle<T> handle = Addressables.LoadAssetAsync<T>(assetName);
@@ -66,6 +94,35 @@ namespace HowlingMan
                 Debug.LogError($"Asset loading status: Failed for {assetName}");
                 return null;
             }
+        }
+
+        // New method for bulk loading and instantiating GameObjects
+        public async Task<List<GameObject>> LoadAndInstantiateAssetsAsync(List<string> assetNames, Transform parent = null)
+        {
+            var loadTasks = new List<AsyncOperationHandle<GameObject>>();
+            foreach (var name in assetNames)
+            {
+                loadTasks.Add(Addressables.LoadAssetAsync<GameObject>(name));
+            }
+
+            var instantiatedObjects = new List<GameObject>();
+            foreach (var task in loadTasks)
+            {
+                await task.Task;
+                if (task.Status == AsyncOperationStatus.Succeeded)
+                {
+                    GameObject loadedObject = task.Result;
+                    GameObject instantiatedObject = Object.Instantiate(loadedObject, parent);
+                    instantiatedObjects.Add(instantiatedObject);
+                }
+                else
+                {
+                    Debug.LogError($"Failed to load and instantiate asset: {task.Result.name}");
+                    // Handle the error appropriately
+                }
+            }
+
+            return instantiatedObjects;
         }
     }
 }
