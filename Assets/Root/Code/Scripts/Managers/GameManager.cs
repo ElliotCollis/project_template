@@ -16,6 +16,8 @@ namespace HowlingMan
         public static GameManager instance = null;
         public LevelManager levelManager;
         public UIManager uiManager;
+        public Localization localization;
+
         MenuInput menuInput;
         public GameStates gameState;
         public bool gamePaused = false;
