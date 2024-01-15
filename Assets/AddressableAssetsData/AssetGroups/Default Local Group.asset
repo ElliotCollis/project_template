@@ -82,6 +82,31 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 702b0673440be40688094981086ae9a6
+    m_Address: UIOptionsButton
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 038eeb20f53d043eaaaa952b6c93884c
+    m_Address: UIOptionsCheckBox
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1c2336635d09649e3b80c8e82b9b400d
+    m_Address: UIOptionsDropdown
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 63fb107078db349bead0fe4f06dbdb89
+    m_Address: UIOptionsInputField
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3ae03ac0089e74368bf7c9c14518761c
+    m_Address: UIOptionsSlider
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 15e87be88d2e444238c4a9bf037814b2, type: 2}
   m_SchemaSet:
