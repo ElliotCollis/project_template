@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using DG.Tweening;
-using UnityEngine.AddressableAssets;
 
 namespace HowlingMan
 {
@@ -26,7 +25,6 @@ namespace HowlingMan
 
         AddressableAssetLoader assetLoader;
 
-        //AsyncOperationHandle<GameObject> loadedMenu;
 
         private void Start()
         {
@@ -84,14 +82,14 @@ namespace HowlingMan
             LoadMenuAsync(footerName, 2);
         }
 
-        async void LoadMenuAsync(string menuName, int menuLevel = 0)
+        public async void LoadMenuAsync(string menuName, int menuLevel = 0)
         {
             Debug.Log(menuName);
 
-            if (string.IsNullOrEmpty(menuName) || menuName == "")
+            if (string.IsNullOrEmpty(menuName))
                 return;
 
-            GameObject loadedMenu = await assetLoader.LoadAssetAndInstantiateAsync<GameObject>(menuName, transform);
+            GameObject loadedMenu= await assetLoader.LoadAssetAndInstantiateAsync<GameObject>(menuName, transform);
 
             if (loadedMenu != null)
             {
@@ -129,7 +127,6 @@ namespace HowlingMan
                         break;
          
                 }
-
 
                 FadeMenu(canvasGroup, 1, 0.2f, false, false);
 
@@ -202,7 +199,5 @@ namespace HowlingMan
             GameManager.instance.gameState = GameManager.GameStates.inMenu;
             LoadMenu(AssetData.MainMenuPrefab);
         }
-
-        
     }
 }

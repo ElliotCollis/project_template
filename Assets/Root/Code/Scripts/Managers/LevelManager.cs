@@ -89,7 +89,7 @@ namespace HowlingMan
                 GameManager.instance.uiManager.LoadMenu(menuToLoad);
             else
                 GameManager.instance.uiManager.HideLoading();
-            
+
             asyncOperation.allowSceneActivation = true;
             yield return new WaitForEndOfFrame();
 
@@ -97,7 +97,7 @@ namespace HowlingMan
             targetLevel = "";
             loading = false;
 
-            // unity scripting allow scene activation if I want a progress bar.
+            // unity scripting allow scene activation if I want a progress bar. might not work with async operations easily.
         }
 
         public void LoadHome()

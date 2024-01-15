@@ -17,12 +17,12 @@ namespace HowlingMan
 
             if (handle.Status == AsyncOperationStatus.Succeeded)
             {
-                Debug.Log($"Asset loading status: Succeeded");
+                Debug.Log($"Asset loading status: Succeeded {assetName}");
                 return handle.Result;
             }
             else
             {
-                Debug.LogError($"Asset loading status: Failed");
+                Debug.LogError($"Asset loading status: Failed {assetName}");
                 return null;
             }
         }

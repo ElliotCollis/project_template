@@ -19,5 +19,10 @@ namespace HowlingMan
         public const string PopUpDialogueBoxLarge = "PopUpDialogueBoxLarge";
         public const string TabPanelContainer = "TabPanelContainer";
         public const string LargePanel = "LargePanel";
+        public const string UIOptionsButton = "UIOptionsButton";
+        public const string UIOptionsCheckBox = "UIOptionsCheckBox";
+        public const string UIOptionsDropdown = "UIOptionsDropdown";
+        public const string UIOptionsInputField = "UIOptionsInputField";
+        public const string UIOptionsSlider = "UIOptionsSlider"; 
     }
 }
