@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -7,6 +8,12 @@ namespace HowlingMan
 {
     public class UIManager : MonoBehaviour
     {
+        public Canvas headerCanvas;
+
+        public Canvas footerCanvas;
+
+        [Space]
+
         public CanvasGroup currentCanvas = null;
 
         public CanvasGroup currentHeader = null;
@@ -21,9 +28,18 @@ namespace HowlingMan
 
         public CanvasGroup loadingLayer;
 
+        public enum MenuType
+        {
+            Main,
+            Header,
+            Footer
+        }
+
         Queue<string> menuTree = new Queue<string>();
 
         AddressableAssetLoader assetLoader;
+
+        Dictionary<string, CanvasGroup> loadedMenus = new Dictionary<string, CanvasGroup>();
 
 
         private void Start()
@@ -65,76 +81,119 @@ namespace HowlingMan
             }).SetUpdate(true);
         }
 
-        public void LoadMenu(string menuName)
+
+        public async Task PreloadMenus (string[] menuNames)
+        {
+            foreach (string menu in menuNames)
+            {
+                if (loadedMenus.ContainsKey(menu))
+                {
+                    // could make sure to turn it off here maybe?
+                    continue;
+                }
+
+                CanvasGroup canvasGroup = await LoadMenuAsync(menu, transform, MenuType.Main, true);
+                loadedMenus.Add(menu, canvasGroup);
+            }
+        }
+
+        public async Task LoadMenu(string menuName)
         {
             if (menuName == "MainMenuPrefab") menuTree.Clear();
 
-            LoadMenuAsync(menuName, 0);
+            if(loadedMenus.TryGetValue(menuName, out CanvasGroup canvasGroup))
+            {
+                if (currentCanvas != null)
+                    FadeMenu(currentCanvas, 0, 0.2f, true, true, !loadedMenus.ContainsKey(menuName));
+
+                currentCanvas = canvasGroup;
+
+                Debug.Log($"Add menu {menuName} to menu tree.");
+                menuTree.Enqueue(menuName);
+
+                FadeMenu(canvasGroup, 1, 0.2f);
+
+                return;
+            }
+
+            await LoadMenuAsync(menuName, transform, MenuType.Main);
         }
 
-        public void LoadHeader(string headerName)
+        public async Task LoadHeader(string headerName)
         {
-            LoadMenuAsync(headerName, 1);
+            await LoadMenuAsync(headerName, headerCanvas.transform, MenuType.Header);
         }
 
-        public void LoadFooter(string footerName)
+        public async Task LoadFooter(string footerName)
         {
-            LoadMenuAsync(footerName, 2);
+            await LoadMenuAsync(footerName, footerCanvas.transform, MenuType.Footer);
         }
 
-        public async void LoadMenuAsync(string menuName, int menuLevel = 0)
+        public async Task<CanvasGroup> LoadMenuAsync(string menuName, Transform canvas, MenuType menuType, bool preload = false)
         {
             Debug.Log(menuName);
 
             if (string.IsNullOrEmpty(menuName))
-                return;
+            {
+                Debug.LogWarning("Menu name is null or empty");
+                return null;
+            }
 
-            GameObject loadedMenu= await assetLoader.LoadAssetAndInstantiateAsync<GameObject>(menuName, transform);
+            GameObject loadedMenu = await assetLoader.LoadAssetAndInstantiateAsync<GameObject>(menuName, canvas);
 
             if (loadedMenu != null)
             {
+                loadedMenu.transform.SetAsFirstSibling();
                 CanvasGroup canvasGroup = loadedMenu.GetComponent<CanvasGroup>();
 
-                switch (menuLevel)
+                if(preload)
                 {
-                    case 0: // current menu
-                        loadedMenu.transform.SetAsFirstSibling();
-                        Debug.Log($"Add menu {menuName} to menu tree.");
-                        menuTree.Enqueue(menuName);
-
-                        if (currentCanvas != null)
-                            FadeMenu(currentCanvas, 0, 0.2f, true, true, true);
-
-                        currentCanvas = canvasGroup;
-                        break;
-
-                    case 1: // current header
-                        loadedMenu.transform.SetSiblingIndex(1);
-
-                        if (currentHeader != null)
-                            FadeMenu(currentHeader, 0, 0.2f, true, true, true);
-
-                        currentHeader = canvasGroup;
-                        break;
-
-                    case 2: // current footer
-                        loadedMenu.transform.SetSiblingIndex(2);
-
-                        if (currentFooter != null)
-                            FadeMenu(currentFooter, 0, 0.2f, true, true, true);
-
-                        currentFooter = canvasGroup;
-                        break;
-         
+                    canvasGroup.gameObject.SetActive(false);
+                    return canvasGroup;
                 }
 
-                FadeMenu(canvasGroup, 1, 0.2f, false, false);
+                ProcessMenu(menuType, canvasGroup);
 
-                if (loadingLayer.alpha == 1) HideLoading();
+                if (menuType == MenuType.Main)
+                {
+                    Debug.Log($"Add menu {menuName} to menu tree.");
+                    menuTree.Enqueue(menuName);
+                }
+
+                FadeMenu(canvasGroup, 1, 0.2f);
+
+                return canvasGroup;
             }
+            
             else
             {
-                Debug.Log("Menu loading status: Failed");
+                Debug.LogWarning("Menu loading status: Failed");
+                return null;
+            }
+        }
+
+        private void ProcessMenu(MenuType menuType, CanvasGroup canvasGroup)
+        {
+            switch (menuType)
+            {
+                case MenuType.Main:
+                    if (currentCanvas != null)
+                        FadeMenu(currentCanvas, 0, 0.2f, true, true, true);
+
+                    currentCanvas = canvasGroup;
+                    break;
+                case MenuType.Header:
+                    if (currentHeader != null)
+                        FadeMenu(currentHeader, 0, 0.2f, true, true, true);
+
+                    currentHeader = canvasGroup;
+                    break;
+                case MenuType.Footer:
+                    if (currentFooter != null)
+                        FadeMenu(currentFooter, 0, 0.2f, true, true, true);
+
+                    currentFooter = canvasGroup;
+                    break;
             }
         }
 
@@ -142,6 +201,7 @@ namespace HowlingMan
         {
             ClearCurrentMenu();
             ClearHeaderAndFooter();
+            ClearPreloadedMenus();
         }
 
         public void ClearCurrentMenu()
@@ -178,7 +238,15 @@ namespace HowlingMan
                 currentFooter.gameObject.SetActive(true);
         }
 
-        public void Back() // on android back button call this.
+        public void ClearPreloadedMenus ()
+        {
+            // todo delte old menus before moving on!
+            // maybe find a way to keep options around?? unless in game and in menu are slighyl differen
+
+            loadedMenus.Clear();
+        }
+
+        async public void Back() // on android back button call this.
         {
             menuTree.Dequeue();
 
@@ -190,14 +258,14 @@ namespace HowlingMan
 
             Debug.Log($"Back : {menuTree.Count}");
 
-            LoadMenu(menuTree.Dequeue());
+            await LoadMenu(menuTree.Dequeue());
         }
 
-        public void BackToHome()
+        async public void BackToHome()
         {
             Debug.Log("Back to home");
             GameManager.instance.gameState = GameManager.GameStates.inMenu;
-            LoadMenu(AssetData.MainMenuPrefab);
+            await LoadMenu(AssetData.MainMenuPrefab);
         }
     }
 }

@@ -14,9 +14,9 @@ namespace HowlingMan.UI
             {
                 return new string[]
                 {
-                    "StartGame",
+                    "Start_Game",
                     "Options",
-                    "Customization",
+                    "Customisation",
                     "Shop"
                 #if UNITY_EDITOR || UNITY_STANDALONE || UNITY_STANDALONE_OSX
                     , "Exit"
@@ -25,40 +25,40 @@ namespace HowlingMan.UI
             }
         }
 
-        public override void LoadHeader()
+        public async override void LoadHeader()
         {
-            GameManager.instance.uiManager.LoadHeader("MainMenuHeaderPrefab");
+            await GameManager.instance.uiManager.LoadHeader("MainMenuHeaderPrefab");
         }
 
-        public override void LoadFooter()
+        public async override void LoadFooter()
         {
-            GameManager.instance.uiManager.LoadFooter("MainMenuFooterPrefab");
+            await GameManager.instance.uiManager.LoadFooter("MainMenuFooterPrefab");
         }
 
 
-        void StartGame()
+        void Start_Game()
         {
             Debug.Log("start the game");
             GameManager.instance.gameState = GameManager.GameStates.inGame;
             GameManager.instance.levelManager.LoadLevel("Gameplay"); 
         }
 
-        void Options()
+        async void Options()
         {
             Debug.Log("load options menu");
-            GameManager.instance.uiManager.LoadMenu("OptionsPrefab");
+            await GameManager.instance.uiManager.LoadMenu("OptionsPrefab");
         }
 
-        void Customization()
+        async void Customisation()
         {
             Debug.Log("load customization menu");
-            GameManager.instance.uiManager.LoadMenu("CustomizationPrefab");
+            await GameManager.instance.uiManager.LoadMenu("CustomizationPrefab");
         }
 
-        void Shop()
+        async void Shop()
         {
             Debug.Log("load the shop");
-            GameManager.instance.uiManager.LoadMenu("ShopPrefab");
+            await GameManager.instance.uiManager.LoadMenu("ShopPrefab");
         }
 
         void Exit ()

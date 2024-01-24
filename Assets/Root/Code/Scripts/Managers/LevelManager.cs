@@ -15,7 +15,7 @@ namespace HowlingMan
 
         bool loading = false;
 
-        public int[] LevelSeeds;
+        // public int[] LevelSeeds;
 
         public void StartGameLoad()
         {
@@ -37,7 +37,7 @@ namespace HowlingMan
             }
         }
 
-        IEnumerator ShowSplashScreen ()
+        IEnumerator ShowSplashScreen () // todo update splash screen to also preload main menu assets.
         {
             loading = true;
 
@@ -84,11 +84,6 @@ namespace HowlingMan
             {
                 yield return null;
             }
-
-            if (menuToLoad != "")
-                GameManager.instance.uiManager.LoadMenu(menuToLoad);
-            else
-                GameManager.instance.uiManager.HideLoading();
 
             asyncOperation.allowSceneActivation = true;
             yield return new WaitForEndOfFrame();

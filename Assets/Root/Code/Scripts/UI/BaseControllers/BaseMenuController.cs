@@ -1,6 +1,5 @@
 using System.Text;
-using System.Collections;
-using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,14 +19,15 @@ namespace HowlingMan.UI
 
         void Awake()
         {
+            assetLoader = new AddressableAssetLoader();
+
             if (!Initialized)
                 InitializeUI();
         }
 
-        async void InitializeUI()
+        async void InitializeUI() // task?
         {
             layoutGroup.gameObject.SetActive(false);
-            assetLoader = new AddressableAssetLoader();
             GameObject buttonPrefab = await assetLoader.LoadAssetAsync<GameObject>(AssetData.UISimpleButton);
 
             if (buttonPrefab != null)
@@ -48,16 +48,18 @@ namespace HowlingMan.UI
                 assetLoader.UnloadAsset(buttonPrefab);
             }
 
-            LoadHeader();
-            LoadFooter();
-
-            layoutGroup.gameObject.SetActive(true);
-            OnInitialize();
+            // turn into tasks
+            LoadHeader(); 
+            LoadFooter(); 
+            OnInitialize(); // this is important because it's the other parts like the options menu
 
             Initialized = true;
         }
 
-        public virtual void OnInitialize() { }
+        public virtual void OnInitialize()
+        { 
+            layoutGroup.gameObject.SetActive(true);
+        }
         
 
         public abstract void LoadHeader();

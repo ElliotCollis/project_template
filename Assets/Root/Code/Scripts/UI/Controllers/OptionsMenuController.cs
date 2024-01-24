@@ -28,17 +28,14 @@ namespace HowlingMan.UI
             }
         }
 
-        public override void OnInitialize()
+        public async override void OnInitialize()
         {
             tabController = new TabController();
             AssetLoader = new AddressableAssetLoader();
 
-            SpawnOptions();
-        }
-
-        async void SpawnOptions()
-        {
             await SpawnOptionTabs();
+
+            base.OnInitialize();
         }
 
         async Task SpawnOptionTabs()
