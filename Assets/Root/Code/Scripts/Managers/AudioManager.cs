@@ -7,7 +7,7 @@ namespace HowlingMan
 {
     public class AudioManager : MonoBehaviour
     {
-        private FMOD.Studio.EventInstance bgmInstance;
+        FMOD.Studio.EventInstance bgmInstance;
 
         public void PlaySFX(string sfxPath)
         {
@@ -42,7 +42,7 @@ namespace HowlingMan
             }
         }
 
-        private bool EventExists(string path)
+        bool EventExists(string path)
         {
             FMOD.Studio.EventDescription eventDescription;
             FMOD.RESULT result = RuntimeManager.StudioSystem.getEvent(path, out eventDescription);
@@ -53,6 +53,49 @@ namespace HowlingMan
             }
 
             return eventDescription.isValid();
+        }
+
+        /// <summary>
+        /// Options
+        /// </summary>
+
+        public void SetMasterVolume(float newValue)
+        {
+            FMOD.Studio.Bus masterBus = RuntimeManager.GetBus("bus:/Master");
+
+            if (masterBus.isValid())
+            {
+                masterBus.setVolume(newValue);
+                return;
+            }
+
+            Debug.LogError("Failed to set volume: Master bus not found.");
+        }
+
+        public void SetMusicVolume(float newValue)
+        {
+            FMOD.Studio.Bus masterBus = RuntimeManager.GetBus("bus:/Music");
+
+            if (masterBus.isValid())
+            {
+                masterBus.setVolume(newValue);
+                return;
+            }
+
+            Debug.LogError("Failed to set volume: Master bus not found.");
+        }
+
+        public void SetSfxVolume(float newValue)
+        {
+            FMOD.Studio.Bus masterBus = RuntimeManager.GetBus("bus:/Sfx");
+
+            if (masterBus.isValid())
+            {
+                masterBus.setVolume(newValue);
+                return;
+            }
+
+            Debug.LogError("Failed to set volume: Master bus not found.");
         }
 
         // Optional: Coroutine for fading BGM

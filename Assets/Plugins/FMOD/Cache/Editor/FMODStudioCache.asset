@@ -43,10 +43,10 @@ MonoBehaviour:
   Path: FmodBaseProject/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638409855309800000
+  lastModified: 638416767482300000
   FileSizes:
   - Name: Desktop
-    Value: 1574
+    Value: 1808
   Exists: 1
 --- !u!114 &-8011279565163639958
 MonoBehaviour:
@@ -76,6 +76,34 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-7492749325001520835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/jingles_STEEL00
+  m_EditorClassIdentifier: 
+  Path: event:/Music/jingles_STEEL00
+  Guid:
+    Data1: 651427986
+    Data2: 1189521145
+    Data3: 390867892
+    Data4: 826198522
+  Banks:
+  - {fileID: 485432922817795110}
+  - {fileID: 3625732358400741671}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 932
 --- !u!114 &-7037314688722978375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,6 +188,34 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-5306280671807296090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/jingles_PIZZI00
+  m_EditorClassIdentifier: 
+  Path: event:/Music/jingles_PIZZI00
+  Guid:
+    Data1: -1400636548
+    Data2: 1307414639
+    Data3: -251989859
+    Data4: 242742650
+  Banks:
+  - {fileID: 485432922817795110}
+  - {fileID: 3625732358400741671}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 494
 --- !u!114 &-5021389015983694480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,12 +419,17 @@ MonoBehaviour:
   - {fileID: 8320830538681816729}
   - {fileID: -4475100497758936652}
   - {fileID: -5021389015983694480}
+  - {fileID: 5667135024750516523}
+  - {fileID: 2082075531702548052}
+  - {fileID: 8550064782942556972}
+  - {fileID: -5306280671807296090}
+  - {fileID: -7492749325001520835}
   EditorParameters: []
   MasterBanks:
   - {fileID: 485432922817795110}
   StringsBanks:
   - {fileID: -8147909957184894616}
-  cacheTime: 638409855310500000
+  cacheTime: 638416767483100000
   cacheVersion: 131616
 --- !u!114 &485432922817795110
 MonoBehaviour:
@@ -385,11 +446,39 @@ MonoBehaviour:
   Path: FmodBaseProject/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638409855309800000
+  lastModified: 638416767482300000
   FileSizes:
   - Name: Desktop
-    Value: 47168
+    Value: 97536
   Exists: 1
+--- !u!114 &2082075531702548052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/jingles_HIT00
+  m_EditorClassIdentifier: 
+  Path: event:/Music/jingles_HIT00
+  Guid:
+    Data1: -157592771
+    Data2: 1115664638
+    Data3: 437948292
+    Data4: -1895243372
+  Banks:
+  - {fileID: 485432922817795110}
+  - {fileID: 3625732358400741671}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 284
 --- !u!114 &2954161558144315032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -433,11 +522,39 @@ MonoBehaviour:
   Path: FmodBaseProject/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 638409855310500000
+  lastModified: 638416767482600000
   FileSizes:
   - Name: Desktop
-    Value: 494
+    Value: 51040
   Exists: 1
+--- !u!114 &5667135024750516523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/jingles_NES00
+  m_EditorClassIdentifier: 
+  Path: event:/Music/jingles_NES00
+  Guid:
+    Data1: -1876896742
+    Data2: 1131577961
+    Data3: -138997867
+    Data4: 806176563
+  Banks:
+  - {fileID: 485432922817795110}
+  - {fileID: 3625732358400741671}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1757
 --- !u!114 &6459154788672850844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -593,8 +710,36 @@ MonoBehaviour:
   Path: FmodBaseProject/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638409855310400000
+  lastModified: 638416767483100000
   FileSizes:
   - Name: Desktop
     Value: 46656
   Exists: 1
+--- !u!114 &8550064782942556972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/jingles_SAX00
+  m_EditorClassIdentifier: 
+  Path: event:/Music/jingles_SAX00
+  Guid:
+    Data1: 1930802512
+    Data2: 1316684637
+    Data3: -893707879
+    Data4: -1189471900
+  Banks:
+  - {fileID: 485432922817795110}
+  - {fileID: 3625732358400741671}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 390

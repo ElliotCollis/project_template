@@ -16,7 +16,9 @@ namespace HowlingMan
         public static GameManager instance = null;
         public LevelManager levelManager;
         public UIManager uiManager;
+        public AudioManager audioManager;
         public Localization localization;
+        public PlayerSettings playerSettings;
 
         MenuInput menuInput;
         public GameStates gameState;
@@ -61,12 +63,12 @@ namespace HowlingMan
                 Pause();
         }
 
-        void Pause ()
+        async void Pause ()
         {
             gamePaused = true;
-            uiManager.LoadMenu(AssetData.PauseMenuPrefab);
-            uiManager.StoreHeaderAndFooter();
             Time.timeScale = 0;
+            await uiManager.LoadMenu(AssetData.PauseMenuPrefab);
+            uiManager.StoreHeaderAndFooter();
         }
 
 
