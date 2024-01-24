@@ -18,20 +18,24 @@ namespace HowlingMan
                 text = textField.text;
             }
 
-           // UpdateText();
-
             Localization.OnChangeLanguage += UpdateText;
         }
 
         void OnDisable()
         {
             Localization.OnChangeLanguage -= UpdateText;
-
         }
 
         public void UpdateText()
         {
+            if (textField == null)
+            {
+                textField = GetComponent<TMP_Text>();
+            }
+
             textField.text = GameManager.instance.localization.GetLocalizedText(text);
+            textField.font = GameManager.instance.localization.GetCurrentFont();
+
         }
     }
 }

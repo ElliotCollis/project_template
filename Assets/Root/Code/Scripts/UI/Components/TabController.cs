@@ -7,6 +7,7 @@ namespace HowlingMan.UI
     [SerializeField]
     public class TabController
     {
+        public float tabButtonInactiveDelay = 0.2f;
         public PanalRef basePanel;
         public List<ButtonRef> tabButtons;
         public List<CanvasGroup> tabPanels;
@@ -60,6 +61,8 @@ namespace HowlingMan.UI
 
                 int index = i;  // Local variable to capture the current index
                 buttonRef.AddButtonAction(() => DisplayPanel(index));
+                buttonRef.SetButtonText(buttonNames[i]);
+                buttonRef.inactiveDelay = tabButtonInactiveDelay;
                 tabButtons.Add(buttonRef);
             }
 
@@ -91,6 +94,3 @@ namespace HowlingMan.UI
         }
     }
 }
-
-//  spawing everything in finally, but not set sizes correctly, so need to run through and set sizes and pivot points to center.
-//  also most things are spawwning backwards...?

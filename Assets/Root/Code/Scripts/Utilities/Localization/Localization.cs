@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 namespace HowlingMan
 {
@@ -14,37 +15,43 @@ namespace HowlingMan
 
         Dictionary<string, Dictionary<string, string>> localizations;
 
-        string currentLanguage;
-        string defaultLanguage = "English";
+        public enum SupportedLanguages
+        {
+            English,
+            Māori,
+            Japanese,
+            Korean,
+            Chinese,
+            French,
+            Spanish,
+            Portuguese,
+            German,
+            Arabic,
+            Russian
+        }
+
+        [Space(20)]
+
+        [SerializeField] TMP_FontAsset romanicFont;
+        [SerializeField] TMP_FontAsset japaneseFont;
+        [SerializeField] TMP_FontAsset chineseFont;
+        [SerializeField] TMP_FontAsset koreanFont;
+        [SerializeField] TMP_FontAsset arabicFont;
+
+        public SupportedLanguages currentLanguage;
 
         void Awake()
         {
             LoadLocalizations();
         }
 
-         void Update()
+        private void Update()
         {
-            if(Input.GetKeyDown(KeyCode.Z))
+            if(Input.GetKeyDown(KeyCode.Space))
             {
-                SetLanguage("English");
-            }
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                SetLanguage("Japanese");
-            }
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                SetLanguage("Maori");
-            }
+                currentLanguage = (SupportedLanguages)(((int)currentLanguage + 1) % System.Enum.GetValues(typeof(SupportedLanguages)).Length);
 
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                Debug.Log(GetLocalizedText("hello"));
-            }
-
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                Debug.Log(GetLocalizedText("good_morning"));
+                OnChangeLanguage?.Invoke();
             }
         }
 
@@ -73,12 +80,12 @@ namespace HowlingMan
                 }
             }
 
-            SetLanguage(defaultLanguage);
+            SetLanguage(GameManager.instance.playerSettings.CurrentLanguage); // move to loading game configurations
         }
 
-        public void SetLanguage(string language)
+        public void SetLanguage(SupportedLanguages language)
         {
-            if (localizations.ContainsKey(language))
+            if (localizations.ContainsKey(language.ToString()))
             {
                 currentLanguage = language;
                 Debug.Log("Localization language changed to " + currentLanguage);
@@ -93,11 +100,39 @@ namespace HowlingMan
 
         public string GetLocalizedText(string key)
         {
-            if (!string.IsNullOrEmpty(currentLanguage) && localizations[currentLanguage].ContainsKey(key))
+            if (!string.IsNullOrEmpty(currentLanguage.ToString()) && localizations[currentLanguage.ToString()].ContainsKey(key))
             {
-                return localizations[currentLanguage][key];
+                return localizations[currentLanguage.ToString()][key];
             }
-            return "Localization not found for key: " + key;
+            
+            return key;
+        }
+
+        public TMP_FontAsset GetCurrentFont()
+        {
+            if (currentLanguage == SupportedLanguages.Māori
+                || currentLanguage == SupportedLanguages.French
+                || currentLanguage == SupportedLanguages.Spanish
+                || currentLanguage == SupportedLanguages.Portuguese
+                || currentLanguage == SupportedLanguages.German
+                || currentLanguage == SupportedLanguages.Russian)
+            {
+                return romanicFont;
+            }
+
+            switch (currentLanguage)
+            {
+                case SupportedLanguages.Japanese:
+                    return japaneseFont;
+                case SupportedLanguages.Korean:
+                    return koreanFont;
+                case SupportedLanguages.Chinese:
+                    return chineseFont;
+                case SupportedLanguages.Arabic:
+                    return arabicFont;
+            }
+
+            return romanicFont;
         }
     }
 }

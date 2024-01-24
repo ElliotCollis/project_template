@@ -1,3 +1,15 @@
-Key,English,Japanese,Maori
-hello,hello,こんにちは,kia ora
-good_morning,good morning,おはよう,mōrena
+Key,English,Māori,Japanese,Korean,Chinese,French,Spanish,Portuguese,German,Arabic,Russian
+hello,hello,kia ora,こんにちは,안녕하세요,你好,bonjour,hola,olá,hallo,مرحبا,привет
+good_morning,good morning,mōrena,おはよう,좋은 아침,早上好,bonjour,buenos días,bom dia,guten Morgen,صباح الخير,доброе утро
+loading,loading,utaina,ロード中,로딩 중,加载中,chargement,cargando,carregando,Laden,جار التحميل,загрузка
+start_game,start,tīmata,開始,시작,开始,démarrer,empezar,começar,starten,ابدأ,начать
+options,options,kōwhiringa,オプション,옵션,选项,options,opciones,opções,Optionen,خيارات,опции
+customisation,customisation,whakaritenga,カスタマイズ,맞춤 설정,自定义,personnalisation,personalización,personalização,Anpassung,تخصيص,настройка
+shop,shop,toa,ショップ,상점,商店,magasin,tienda,loja,Geschäft,متجر,магазин
+exit,exit,putanga,終了,종료,退出,sortie,salir,sair,verlassen,خروج,выход
+back,back,hoki,戻る,뒤로,返回,retour,volver,voltar,zurück,عودة,назад
+general,general,whānui,一般,일반,一般,général,general,geral,allgemein,عام,общий
+audio,audio,oro,オーディオ,오디오,音频,audio,audio,áudio,Audio,صوت,аудио
+display,display,whakaatu,ディスプレイ,디스플레이,显示,affichage,pantalla,exibição,Anzeige,عرض,дисплей
+controls,controls,whakahaere,コントロール,제어,控制,contrôles,controles,controles,Steuerung,التحكم,управление
+resume,resume,haere tonu,再開,이어서,继续,reprendre,continuar,continuar,fortsetzen,استئناف,продолжить
