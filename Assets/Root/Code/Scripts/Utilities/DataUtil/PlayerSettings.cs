@@ -7,14 +7,35 @@ namespace HowlingMan
     // used for running game options
     public class PlayerSettings
     {
+        bool initialized = false;
+
+        public PlayerSettings  ()
+        {
+            if (!initialized)
+                Initialize();
+        }
+
+        void Initialize ()
+        {
+            // Load all saved values or set default
+
+            // Default values
+            CurrentLanguage = Localization.SupportedLanguages.English;
+            MasterVolume = 0.5f;
+            MusicVolume = 0.5f;
+            SfxVolume = 0.5f;
+            MuteAllAduio = false;
+            MuteMusicAduio = false;
+            MuteSfxAduio = false; 
+
+            initialized = true;
+        }
+
         Localization.SupportedLanguages currentLanguage = Localization.SupportedLanguages.English;
 
         public Localization.SupportedLanguages CurrentLanguage
         {
-            get
-            {
-                return currentLanguage;
-            }
+            get => currentLanguage;            
             set
             {
                 currentLanguage = value;
@@ -31,10 +52,7 @@ namespace HowlingMan
 
         public float MasterVolume
         {
-            get
-            {
-                return masterVolume;
-            }
+            get => masterVolume;            
             set
             {
                 masterVolume = value;
@@ -48,10 +66,7 @@ namespace HowlingMan
 
         public float MusicVolume
         {
-            get
-            {
-                return musicVolume;
-            }
+            get =>musicVolume;            
             set
             {
                 musicVolume = value;
@@ -65,10 +80,7 @@ namespace HowlingMan
 
         public float SfxVolume
         {
-            get
-            {
-                return sfxVolume;
-            }
+            get => sfxVolume;            
             set
             {
                 sfxVolume = value;
@@ -81,10 +93,7 @@ namespace HowlingMan
 
         public bool MuteAllAduio
         {
-            get
-            {
-                return muteAllAduio;
-            }
+            get => muteAllAduio;         
             set
             {
                 muteAllAduio = value;
@@ -96,10 +105,7 @@ namespace HowlingMan
 
         public bool MuteMusicAduio
         {
-            get
-            {
-                return muteMusicAduio;
-            }
+            get => muteMusicAduio;            
             set
             {
                 muteMusicAduio = value;
@@ -111,10 +117,7 @@ namespace HowlingMan
 
         public bool MuteSfxAduio
         {
-            get
-            {
-                return muteSfxAduio;
-            }
+            get => muteSfxAduio;            
             set
             {
                 muteSfxAduio = value;

@@ -31,6 +31,8 @@ namespace HowlingMan
 
             menuInput = new MenuInput();
             gameState = GameStates.inMenu;
+            localization.Initalize();
+            playerSettings = new PlayerSettings();
             levelManager.StartGameLoad();
         }
 

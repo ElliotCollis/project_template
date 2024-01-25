@@ -8,6 +8,8 @@ namespace HowlingMan
 {
     public class Localization : MonoBehaviour
     {
+        bool initalized = false;
+
         public delegate void ChangeLanguageAction();
         public static event ChangeLanguageAction OnChangeLanguage;
 
@@ -40,9 +42,10 @@ namespace HowlingMan
 
         public SupportedLanguages currentLanguage;
 
-        void Awake()
+        public void Initalize()
         {
-            LoadLocalizations();
+            if (!initalized)
+                LoadLocalizations();
         }
 
         private void Update()
@@ -80,11 +83,14 @@ namespace HowlingMan
                 }
             }
 
-            SetLanguage(GameManager.instance.playerSettings.CurrentLanguage); // move to loading game configurations
+            initalized = true;
         }
 
         public void SetLanguage(SupportedLanguages language)
         {
+            if (!initalized)
+                LoadLocalizations();
+
             if (localizations.ContainsKey(language.ToString()))
             {
                 currentLanguage = language;
@@ -100,6 +106,9 @@ namespace HowlingMan
 
         public string GetLocalizedText(string key)
         {
+            if (!initalized)
+                LoadLocalizations();
+
             if (!string.IsNullOrEmpty(currentLanguage.ToString()) && localizations[currentLanguage.ToString()].ContainsKey(key))
             {
                 return localizations[currentLanguage.ToString()][key];
