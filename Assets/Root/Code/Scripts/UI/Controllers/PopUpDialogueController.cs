@@ -35,6 +35,7 @@ namespace HowlingMan.UI
             dialogueBoxComponent.SetDialogue(dialogue);
             dialogueBoxComponent.SetImage(imageType);
 
+
             int buttons = 1;
 
             if (onConfirm != null) buttons = 2;

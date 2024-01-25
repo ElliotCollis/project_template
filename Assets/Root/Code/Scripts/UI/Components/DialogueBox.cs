@@ -50,6 +50,7 @@ namespace HowlingMan.UI
                 buttonRef.SetButtonText("Close");
                 buttonRef.button.onClick.AddListener(() =>
                 {
+                   // GameManager.instance.audioManager.PlaySFX("UI/rollover1");
                     CloseDialogue();
                     onCancel?.Invoke();
                 });
@@ -59,6 +60,7 @@ namespace HowlingMan.UI
                 buttonRef.SetButtonText("Confirm");
                 buttonRef.button.onClick.AddListener(() =>
                 {
+                   // GameManager.instance.audioManager.PlaySFX("UI/confirmation_001");
                     CloseDialogue();
                     onConfirm?.Invoke();
                 });
@@ -67,20 +69,15 @@ namespace HowlingMan.UI
 
         public void OpenDialogue()
         {
-            // Start from a smaller scale and transparent
-            transform.localScale = Vector3.zero;
-            canvasGroup.alpha = 0;
-
-            // Scale up and fade in using DOTween
-            transform.DOScale(Vector3.one, 1f).SetEase(Ease.OutBounce);
-            canvasGroup.DOFade(1, 0.5f);
+            canvasGroup.transform.localScale = Vector3.zero;
+            canvasGroup.transform.DOScale(Vector3.one, GlobalData.fadeTimes/2).SetEase(Ease.OutQuad);
+            canvasGroup.DOFade(1, GlobalData.fadeTimes/2);
         }
 
         public void CloseDialogue()
         {
-            // Scale down and fade out using DOTween
-            transform.DOScale(Vector3.zero, 1f).SetEase(Ease.InBounce);
-            canvasGroup.DOFade(0, 0.5f).OnComplete(() => Destroy(gameObject));
+            canvasGroup.transform.DOScale(Vector3.zero, GlobalData.fadeTimes/2).SetEase(Ease.InQuad);
+            canvasGroup.DOFade(0, GlobalData.fadeTimes/2).OnComplete(() => Destroy(gameObject));
         }
 
         // background shuts without calling the corrent oncancel action.
