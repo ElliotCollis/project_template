@@ -61,11 +61,12 @@ namespace HowlingMan
 
         public void SetMasterVolume(float newValue)
         {
-            FMOD.Studio.Bus masterBus = RuntimeManager.GetBus("bus:/Master");
+            FMOD.Studio.Bus masterBus = RuntimeManager.GetBus("bus:/");
 
             if (masterBus.isValid())
             {
                 masterBus.setVolume(newValue);
+                Debug.Log("set master bus");
                 return;
             }
 
@@ -74,7 +75,7 @@ namespace HowlingMan
 
         public void SetMusicVolume(float newValue)
         {
-            FMOD.Studio.Bus masterBus = RuntimeManager.GetBus("bus:/Music");
+            FMOD.Studio.Bus masterBus = RuntimeManager.GetBus("bus:/Music Bus");
 
             if (masterBus.isValid())
             {
@@ -87,7 +88,7 @@ namespace HowlingMan
 
         public void SetSfxVolume(float newValue)
         {
-            FMOD.Studio.Bus masterBus = RuntimeManager.GetBus("bus:/Sfx");
+            FMOD.Studio.Bus masterBus = RuntimeManager.GetBus("bus:/Sfx Bus");
 
             if (masterBus.isValid())
             {
