@@ -29,6 +29,8 @@ namespace HowlingMan
             // load our main menu.
             await GameManager.instance.uiManager.LoadMenu(AssetData.MainMenuPrefab);
 
+            GameManager.instance.audioManager.PlayBGM(MusicList.ActandContemplate);
+
             GameManager.instance.uiManager.HideLoading();
         }
     }

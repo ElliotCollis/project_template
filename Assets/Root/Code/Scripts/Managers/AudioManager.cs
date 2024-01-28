@@ -5,23 +5,53 @@ using FMODUnity;
 
 namespace HowlingMan
 {
+    public enum MusicList
+    {
+        ActandContemplate,
+        EternalExplorer,
+        Largo,
+        Oldskool,
+        Timed,
+        Voltage
+    }
+
+    public enum SFXList
+    {
+        back,
+        click,
+        close,
+        confirm,
+        drop,
+        error,
+        open,
+        rollover,
+        sswitch,
+        toggle
+    }
+
+    public enum SFXFolder
+    {
+        UI,
+        player
+    }
+
     public class AudioManager : MonoBehaviour
     {
         FMOD.Studio.EventInstance bgmInstance;
 
-        public void PlaySFX(string sfxPath)
+        public void PlaySFX(SFXList sfxPath, SFXFolder sfxFolder)
         {
-            if (EventExists("event:/SFX/" + sfxPath))
+            if (EventExists("event:/SFX/" + sfxFolder + "/" + sfxPath))
             {
-                RuntimeManager.PlayOneShot("event:/SFX/" + sfxPath);
+                RuntimeManager.PlayOneShot("event:/SFX/" + sfxFolder + "/" + sfxPath);
             }
             else
             {
-                Debug.LogError("SFX path not found: " + "event:/SFX/" + sfxPath);
+                Debug.LogError("SFX path not found: " + "event:/SFX/" + sfxFolder + "/" + sfxPath);
             }
         }
 
-        public void PlayBGM(string bgmPath, float fadeDuration = 1.0f)
+        public void PlayBGM(MusicList bgmPath, float fadeDuration = 1.0f)
         {
             if (EventExists("event:/Music/" + bgmPath))
             {

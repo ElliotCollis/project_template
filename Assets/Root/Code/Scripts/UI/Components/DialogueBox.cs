@@ -50,7 +50,7 @@ namespace HowlingMan.UI
                 buttonRef.SetButtonText("Close");
                 buttonRef.button.onClick.AddListener(() =>
                 {
-                   // GameManager.instance.audioManager.PlaySFX("UI/rollover1");
+                    GameManager.instance.audioManager.PlaySFX(SFXList.close, SFXFolder.UI);
                     CloseDialogue();
                     onCancel?.Invoke();
                 });
@@ -60,7 +60,7 @@ namespace HowlingMan.UI
                 buttonRef.SetButtonText("Confirm");
                 buttonRef.button.onClick.AddListener(() =>
                 {
-                   // GameManager.instance.audioManager.PlaySFX("UI/confirmation_001");
+                    GameManager.instance.audioManager.PlaySFX(SFXList.confirm,  SFXFolder.UI);
                     CloseDialogue();
                     onConfirm?.Invoke();
                 });
