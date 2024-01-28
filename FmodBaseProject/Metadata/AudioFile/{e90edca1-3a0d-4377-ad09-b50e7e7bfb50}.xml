@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{e90edca1-3a0d-4377-ad09-b50e7e7bfb50}">
+		<property name="assetPath">
+			<value>Music/Keep/Of Far Different Nature - Eternal Explorer (CC-BY 4.0).ogg</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>59.076938775510207</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{64902702-fe3e-4b53-ac5d-e7b1bb123e9a}</destination>
+		</relationship>
+	</object>
+</objects>

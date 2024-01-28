@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{468d78f9-967d-4d22-8c70-d489288f5ead}">
+		<property name="assetPath">
+			<value>SFX/UI/minimize_006.ogg</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>0.37995464852607708</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{64902702-fe3e-4b53-ac5d-e7b1bb123e9a}</destination>
+		</relationship>
+	</object>
+</objects>

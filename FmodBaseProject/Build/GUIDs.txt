@@ -1,0 +1,24 @@
+{48c1b0c0-b00e-4378-b239-4dc91719a49c} bank:/Master
+{d0dc9014-c175-0f3a-3470-c737e6eaa204} bank:/Master.strings
+{749050d4-cbd3-4d50-87fa-49d14c4b7997} bank:/Music
+{3314d63d-a4be-4241-b08d-a136009e66c3} bank:/SFX
+{6d772de2-759e-4a26-95b6-041db43bad8f} bus:/
+{c6f70eda-090d-4658-b5a5-aaa36e92e30a} bus:/Music Bus
+{874dc92f-44e4-4de7-b151-0da708cc54b1} bus:/Reverb
+{9edf5a8b-191d-468c-87ba-276bb01a0226} bus:/SFX Bus
+{15f1cc02-fba2-4a8a-9e01-25dee4e71c5e} event:/Music/Act and Contemplate
+{dfdf5e57-bdee-4d4c-a99b-761dcccc9e1c} event:/Music/Eternal Explorer
+{d720c5c7-d6bb-4f95-b007-686602f40219} event:/Music/Largo
+{a90de69b-8769-487e-b466-8afb0ae63b40} event:/Music/Oldskool
+{3d033915-a9bf-4ae1-8680-5d538ccf0276} event:/Music/Timed
+{a38bd420-5969-4f71-a73e-dbaee9bdcdc4} event:/Music/Voltage
+{f57323da-2030-4da0-8f2d-75171f33cf71} event:/SFX/UI/back
+{4aaed9ef-5e77-4b81-9998-624abc520faa} event:/SFX/UI/click
+{e4fe868b-f1cc-4c00-96ff-06d20e30a0df} event:/SFX/UI/close
+{f33716e4-485f-4e1a-addd-516514ff761e} event:/SFX/UI/confirm
+{f7e7095c-2586-401d-9d0a-549e7ee848c8} event:/SFX/UI/drop
+{ae6f93c3-f984-4725-9532-53150e885792} event:/SFX/UI/error
+{d42c8ffb-12f7-4c70-9b4b-f5214da468f1} event:/SFX/UI/open
+{6e9a781b-729a-43bb-a031-b35410bf517b} event:/SFX/UI/rollover
+{737bc7f5-29db-4b92-ae7c-988291c47cb1} event:/SFX/UI/switch
+{58afccfe-d09f-4122-b954-6fd485332a48} event:/SFX/UI/toggle

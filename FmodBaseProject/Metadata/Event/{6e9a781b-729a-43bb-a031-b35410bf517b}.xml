@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{6e9a781b-729a-43bb-a031-b35410bf517b}">
 		<property name="name">
-			<value>rollover1</value>
+			<value>rollover</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>
@@ -85,7 +85,7 @@
 	</object>
 	<object class="MultiSound" id="{b703a665-1a61-49c7-a500-9fdd8398d3e4}">
 		<relationship name="sounds">
-			<destination>{36163543-9354-4f1b-b33e-1d6a6bb2f2a9}</destination>
+			<destination>{e5940973-2e32-4c77-97d8-aacbaeb12897}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusEffectChain" id="{9424d46e-5487-4109-97f5-8026c02befb7}">
@@ -100,9 +100,9 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{ae6b5464-fa0a-446f-b24e-98195d85208c}" />
-	<object class="SingleSound" id="{36163543-9354-4f1b-b33e-1d6a6bb2f2a9}">
+	<object class="SingleSound" id="{e5940973-2e32-4c77-97d8-aacbaeb12897}">
 		<relationship name="audioFile">
-			<destination>{f4b51bbb-5fd8-4858-b4ca-2690dac7ac46}</destination>
+			<destination>{0451832a-ae91-48d1-8cf2-4271346989d8}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusFader" id="{5238d36b-b61c-41cc-823b-1fab8dfba376}" />

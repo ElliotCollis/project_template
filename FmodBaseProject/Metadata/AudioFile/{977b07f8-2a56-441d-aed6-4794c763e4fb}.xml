@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{977b07f8-2a56-441d-aed6-4794c763e4fb}">
+		<property name="assetPath">
+			<value>Music/Keep/Of Far Different Nature - Act and Contemplate (CC-BY).ogg</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>29.538458049886621</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{64902702-fe3e-4b53-ac5d-e7b1bb123e9a}</destination>
+		</relationship>
+	</object>
+</objects>
